@@ -26,10 +26,10 @@ router.post("/login",async(request,response)=>{
  response.json(res)
 })
 
-// router.post("/changepassword", verifyToken,async(request,response)=>{
-//  const res= await authController.changePassword(request.body)
-//  response.json(res)
-// })
+router.post("/changepassword", verifyToken,async(request,response)=>{
+ const res= await authController.changePassword(request.body)
+ response.json(res)
+})
 
 router.post("/forgotpassword",async(request,response)=>{
     const res= await authController.forgetPassword()

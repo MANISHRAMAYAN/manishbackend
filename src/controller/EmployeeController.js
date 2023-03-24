@@ -1,5 +1,7 @@
+const { ObjectID } = require("bson");
 const { employee } = require("../config/Collection")
 const employeeModel=require("../model/EmployeeModel")
+
 
 
 module.exports={
@@ -58,20 +60,16 @@ module.exports={
     async employeeUpdate(updateData){   
         const response ={}     
           try {
-            const {employeeName,employeeEmail,employeeAge}=updateData.body
-            const id=updateData.params._id     
-            const product=await employeeModel.findById({_id:id})
-             const update=await employeeModel.updateOne({product:product},{$set:{employeeName:employeeName,employeeEmail:employeeEmail,employeeAge:employeeAge}})
-       if(update){
-        response.status="success",
-        response.message=" employee data update suceesfully",
-        response.data={employeeName,employeeEmail,employeeAge}
+            const {employeeName,employeeEmail,employeeAge} = updateData.body
+            console.log(employeeName);
 
-              }
-              else{
-                response.status="falied",
-                response.message="employee data can't be update"
-              }
+            const update= await employeeModel.findOneAndUpdate({_id:updateData.params._id},{employeeName:employeeName,employeeEmail:employeeEmail,employeeAge:employeeAge})
+           
+         if(update){
+            response.status="success",
+            response.message="add succesfully data",
+            response.data={employeeName,employeeEmail,employeeAge}
+         }
             
           } catch (error) {
                 response.status="falied",
@@ -82,10 +80,12 @@ module.exports={
     },
     async singleData(data){
         console.log(data);
+        const id= data.params._id
+        console.log(id);
     const response={}
         
         try {
-            const single = await employeeModel.findOne({employeeEmail:data.employeeEmail},{employeeName:1,employeeAge:1,employeeEmail:1,_id:1})
+            const single = await employeeModel.findOne({_id:ObjectID(data.params._id)},{employeeName:1,employeeAge:1,employeeEmail:1,_id:1})
             if(single){
                 response.status="success",
                 response.message="get single employee data"

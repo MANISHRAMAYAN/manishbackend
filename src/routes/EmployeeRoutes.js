@@ -5,14 +5,15 @@ const upload=require("../middleware/uploadMiddleWare")
 
 
 const router=express.Router()
+// grandAccess("create","addEmployee"),
 
-
-router.post("/addEmployee",grandAccess("create","addEmployee"),async(request,response)=>{
+router.post("/addEmployee",async(request,response)=>{
     const res= await EmployeeController.addEmployee(request.body)
     response.json(res)
 })
+//  grandAccess("delete","addEmployee"),
 
-router.delete("/deleteEmployee/:_id",grandAccess("delete","addEmployee"), async(request,response)=>{
+router.delete("/deleteEmployee/:_id", async(request,response)=>{
     const res = await EmployeeController.deleteEmployee(request.params._id)
     response.json(res)
 })
@@ -23,19 +24,9 @@ router.put("/updateEmployee/:_id",async(request,response)=>{
 })
 
 
-/**
- * @swagger
- * /singleData/:_id:
- *  get:
- *    summary : this api use for single data employee
- *    descirption : this api use for single data employee
- *    responses :
- *        200:
- *           description : this is the data extract
- * 
- */
+
 router.get("/singleData/:_id",async(request,response)=>{  
-    const res=await EmployeeController.singleData(request.body)
+    const res=await EmployeeController.singleData(request)
     response.json(res)
 })
 

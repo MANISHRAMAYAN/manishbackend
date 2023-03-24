@@ -73,7 +73,44 @@ module.exports={
   
 
 
+    async changePassword(updateData){     
+        console.log(updateData);
+        const response={}
+        try {
  
+
+         const dbHash = await authUser.findOne({_id:updateData._id},{password:1})
+         
+            if(comparePassword(updateData.old_password , dbHash.password)){
+                console.log("hello");
+
+                const query={
+                    _id:updateData._id,
+                    email:updateData.email
+                }    
+
+             const new_pass = getHashPassword(updateData)
+             console.log(new_pass);
+            
+             const res = await authUser.updateOne(query,{$set:{password:new_pass.password}})        
+             console.log(res,new_pass)
+
+             if(res.modifiedCount==1){               
+                response.status="success"
+                console.log("hellopass");
+                response.message="password change successfully"
+             }
+           }
+           else{
+            response.status="falied"
+            response.message="incorrect password"
+           }
+        } catch (error) {
+            response.status="falied"
+            response.message="something worong"
+        }
+        return response
+    }
   
 
 }
