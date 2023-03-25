@@ -8,7 +8,8 @@ module.exports={
 
     async addEmployee(addData){
        
-        console.log(addData);
+       
+     
        
         const response={}
         
@@ -79,6 +80,7 @@ module.exports={
 
     },
     async singleData(data){
+        console.log("hello");
         console.log(data);
         const id= data.params._id
         console.log(id);

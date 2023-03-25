@@ -29,6 +29,8 @@
     "nodemon": "^2.0.20",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "yaml-js": "^0.3.1",
+    "yamljs": "^0.3.0"
   }
 }

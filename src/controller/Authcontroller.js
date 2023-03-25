@@ -8,6 +8,7 @@ require("dotenv").config({path:"../../.env"})
 module.exports={
     
     async signup(signupData){
+        console.log("manish");
         const response={}
         try {
             const singupObj=getHashPassword(signupData)

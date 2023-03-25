@@ -1,0 +1,266 @@
+openapi: 3.0.0
+info:
+  title: NormalApi
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://formalapi.onrender.com
+  variables: {}
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - Auth
+      summary: UserSingup
+      operationId: UserSingup
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserSingupRequest'
+              - example:
+                  name: pradeep
+                  email: pradeepkuma@gmail.com
+                  password: '123'
+            example:
+              name: pradeep
+              email: pradeepkuma@gmail.com
+              password: '123'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: UserLogin
+      operationId: UserLogin
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserLoginRequest'
+              - example:
+                  email: pradeep@gmail.com
+                  password: '123'
+            example:
+              email: pradeep@gmail.com
+              password: '123'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /employee/addEmployee:
+    post:
+      tags:
+      - Employee
+      summary: AddEmployee
+      operationId: AddEmployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddEmployeeRequest'
+              - example:
+                  employeeName: pradeep
+                  employeeEmail: kkkm@gmail.com
+                  employeeAge: '12'
+            example:
+              employeeName: pradeep
+              employeeEmail: kkkm@gmail.com
+              employeeAge: '12'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /employee/deleteEmployee/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Employee id
+    delete:
+      tags:
+      - Employee
+      summary: deleteEmployee
+      operationId: deleteEmployee
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /employee/updateEmployee/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: update Employee id
+    put:
+      tags:
+      - Employee
+      summary: UpdateEmployee
+      operationId: UpdateEmployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateEmployeeRequest'
+              - example:
+                  employeeEmail: jk@gmail.com
+            example:
+              employeeEmail: jk@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /employee/singleData/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Single Employee id
+    get:
+      tags:
+      - Employee
+      summary: SingleData
+      operationId: SingleData
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /employee/allData:
+    get:
+      tags:
+      - Employee
+      summary: allData
+      operationId: allData
+      parameters:
+      - name: page
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    UserSingupRequest:
+      title: UserSingupRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: pradeep
+        email: pradeepkuma@gmail.com
+        password: '123'
+    UserLoginRequest:
+      title: UserLoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: pradeep@gmail.com
+        password: '123'
+    AddEmployeeRequest:
+      title: AddEmployeeRequest
+      required:
+      - employeeName
+      - employeeEmail
+      - employeeAge
+      type: object
+      properties:
+        employeeName:
+          type: string
+        employeeEmail:
+          type: string
+        employeeAge:
+          type: string
+      example:
+        employeeName: pradeep
+        employeeEmail: kkkm@gmail.com
+        employeeAge: '12'
+    UpdateEmployeeRequest:
+      title: UpdateEmployeeRequest
+      required:
+      - employeeEmail
+      type: object
+      properties:
+        employeeEmail:
+          type: string
+      example:
+        employeeEmail: jk@gmail.com
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Employee
+  description: ''
